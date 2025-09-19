@@ -1,0 +1,32 @@
+/* Notez-Wiz Custom Styles */
+body {
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* A beautiful gradient from purple to blue */
+    height: 100vh; /* Make sure the gradient covers the whole page */
+    display: flex;
+    flex-direction: column; /* Align content vertically */
+    align-items: center; /* Center horizontally */
+}
+
+
+.jumbotron {
+    margin-top: 50px; /* Add some space from the top */
+    color: #fff; /* White text for contrast */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+    border-radius: 15px; /* Rounded corners for a modern look */
+}
+
+/* Style for the Bootstrap Cards (Forms) */
+.card {
+    border: none; /* Remove the default border */
+    border-radius: 15px; /* Match the rounded corners of the jumbotron */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow for a better "pop" effect */
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+}
+
+/* Center the forms vertically within the page */
+.container {
+    flex-grow: 1; /* Allow the container to take up available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
