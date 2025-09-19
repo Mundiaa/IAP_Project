@@ -1,8 +1,10 @@
 body {
-      background-color: #f4f6f9;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      transition: background 0.3s, color 0.3s;
-    }
+    background: linear-gradient(to right, #f4f6f9, #e9ecef);
+    height: 100vh; /* Make sure the gradient covers the whole page */
+    display: flex;
+    flex-direction: column; /* Align content vertically */
+    align-items: right; /* Center horizontally */
+}
 
     .sidebar {
       height: 100vh;

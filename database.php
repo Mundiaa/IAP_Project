@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "conf.php";
+
 
 if (isset($conn) && $conn) {
     // user
