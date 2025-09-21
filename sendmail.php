@@ -11,8 +11,8 @@ if (!isset($_SESSION['email'])) {
 }
 
 // Generate OTP
-$otp = rand(100000, 999999); 
-$_SESSION['otp'] = $otp;     
+$otp = rand(100000, 999999);
+$_SESSION['otp'] = $otp;
 $_SESSION['otp_expire'] = time() + 300; // 5 minutes validity
 
 $mail = new PHPMailer(true);
@@ -22,14 +22,14 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'emmanuel.wandibba@strathmore.edu';  
-    $mail->Password   = 'eyol iqqe asob gkro';  // Google App Password
+    $mail->Username   = 'emmanuel.wandibba@strathmore.edu';
+    $mail->Password   = 'eyol iqqe asob gkro'; // Gmail App Password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
     // Recipients
     $mail->setFrom('emmanuel.wandibba@strathmore.edu', 'Notez Wiz');
-    $mail->addAddress($_SESSION['email']); 
+    $mail->addAddress($_SESSION['email']); // send to signed-up user
 
     // Content
     $mail->isHTML(true);
@@ -42,9 +42,10 @@ try {
     ";
     $mail->AltBody = "Your verification code is: $otp (valid for 5 minutes)";
 
+    // Send email
     if ($mail->send()) {
-        echo "✅ Verification email sent to {$_SESSION['email']}";
-        header("Refresh:2; url=verify_otp.php"); // wait 2 sec then redirect
+        // Go directly to verify page, no extra output
+        header("Location: verify_otp.php");
         exit;
     } else {
         echo "❌ Mail not sent.";
@@ -53,5 +54,6 @@ try {
 } catch (Exception $e) {
     echo "❌ Email could not be sent. Error: {$mail->ErrorInfo}";
 }
+
 
 
