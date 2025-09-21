@@ -1,20 +1,22 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// Site Information
+$conf['site_name'] = 'Notez Wiz';
+$conf['site_url'] = 'http://localhost';
+$conf['admin_email'] = ''; //your admin email
 
-$servername = "localhost";
-$username = "root";      // change if you created another MariaDB user
-$password = "Admin123";          // your root password (or leave empty if none)
-$dbname = "notez_wiz";
+// Database Configuration (MariaDB)
+$conf['db_host'] = 'localhost';
+$conf['db_user'] = 'root';
+$conf['db_pass'] = '';   //your MariaDB password
+$conf['db_name'] = 'notez_wiz'; //your database name
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Site Language
+$conf['site_lang'] = 'en';
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$conn->set_charset("utf8mb4");
-?>
+// Email Configuration
+$conf['mail_type'] = 'smtp';
+$conf['smtp_host'] = 'smtp.gmail.com';
+$conf['smtp_user'] = ''; //your SMTP email
+$conf['smtp_pass'] = ''; //your SMTP email password
+$conf['smtp_port'] = 465;
+$conf['smtp_secure'] = 'ssl';
