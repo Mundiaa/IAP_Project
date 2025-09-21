@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once 'config.php';
+require_once 'conf.php';
+require_once 'database.php';
 
 if (isset($conn) && $conn) {
     // user
@@ -115,6 +116,6 @@ if (isset($conn) && $conn) {
       </div>
     </div>
   </div>
-  <script src="assets/js/dashboard.js"></script
+  <script src="assets/js/dashboard.js"></script>
  </body>
 </html>
