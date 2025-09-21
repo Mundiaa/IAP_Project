@@ -1,10 +1,10 @@
 //this file is used to test the database connection
 <?php
 $host = '127.0.0.1';
-$port = 3307;
+$port = 3307; // your MariaDB port
 $db   = 'notez_wiz';
 $user = 'root';
-$pass = 'Admin123';
+$pass = 'Admin123'; //Use your actual password
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";

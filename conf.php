@@ -5,8 +5,8 @@ $conf['site_url'] = 'http://localhost:8081/IAP_Project'; //your site url
 $conf['admin_email'] = 'emmanuel.githaiga@strathmore.edu'; //your admin email
 
 // Database Configuration (MariaDB)
-$conf['db_host'] = '127.0.0.1';
-$conf['db_port'] = 3307; 
+$conf['db_host'] = '127.0.0.1'; //you can use localhost
+$conf['db_port'] = 3307; //your MariaDB port
 $conf['db_user'] = 'root';
 $conf['db_pass'] = 'Admin123';   //your MariaDB password
 $conf['db_name'] = 'notez_wiz'; //your database name
