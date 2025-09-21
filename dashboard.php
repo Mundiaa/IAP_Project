@@ -54,7 +54,7 @@ if (isset($conn) && $conn) {
     <a href="#">👤 Profile</a>
     <a href="#">📝 Notes</a>
     <a href="#">⚙️ Settings</a>
-    <a href="#">🚪 Logout</a>
+    <a href="logout.php">🚪 Logout</a>
 
     <div class="toggle-btn">
       <button id="darkModeToggle" class="btn btn-light btn-sm">🌙 Dark Mode</button>
