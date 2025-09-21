@@ -1,11 +1,12 @@
 <?php
 // Site Information
 $conf['site_name'] = 'Notez Wiz';
-$conf['site_url'] = 'http://localhost';
+$conf['site_url'] = 'http://localhost:8081/IAP_Project'; //your site url
 $conf['admin_email'] = 'emmanuel.githaiga@strathmore.edu'; //your admin email
 
 // Database Configuration (MariaDB)
-$conf['db_host'] = 'localhost';
+$conf['db_host'] = '127.0.0.1';
+$conf['db_port'] = 3307; 
 $conf['db_user'] = 'root';
 $conf['db_pass'] = 'Admin123';   //your MariaDB password
 $conf['db_name'] = 'notez_wiz'; //your database name

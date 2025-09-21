@@ -1,7 +1,18 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
+//require_once 'vendor/autoload.php';
 require_once 'conf.php';
 require_once 'database.php';
+
+// Redirect to login if not logged in
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("Location: index.php");
+    exit;
+}
 
 if (isset($conn) && $conn) {
     // user

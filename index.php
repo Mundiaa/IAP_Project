@@ -1,6 +1,8 @@
 <?php
+session_start();
 
 require_once "conf.php";
+require_once 'database.php';
 
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
