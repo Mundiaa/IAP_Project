@@ -1,6 +1,9 @@
 <?php
-require_once "conf.php"; 
+
 session_start();
+
+require_once "conf.php";
+require_once 'database.php';
 
 // If already logged in, go to dashboard
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
