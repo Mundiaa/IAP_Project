@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
 
                     <?php if (isset($error)) { echo "<p class='text-danger'>$error</p>"; } ?>
 
-                    <form action="" method="post">
+                    <form action="register.php" method="POST">
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" name="email" class="form-control" required>
@@ -129,4 +129,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
 </html>
 
 
-<?php
+?>

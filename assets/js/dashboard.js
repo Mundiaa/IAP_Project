@@ -41,3 +41,34 @@ const toggleBtn = document.getElementById("darkModeToggle");
         }
       });
     });
+
+    //Handle Note Submission
+    document.addEventListener('DOMContentLoaded', function() {
+  const addButton = document.getElementById('addNoteBtn');
+  const titleInput = document.getElementById('noteTitle');
+  const contentInput = document.getElementById('noteContent');
+
+  addButton.addEventListener('click', async function() {
+    const title = titleInput.value.trim();
+    const content = contentInput.value.trim();
+
+    if (!title || !content) {
+      alert("Please fill in both title and content.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+
+    const response = await fetch('add_note.php', { method: 'POST', body: formData });
+    const result = await response.text();
+
+    if (result === "success") {
+      alert("Note added successfully!");
+      location.reload();
+    } else {
+      alert("Error adding note: " + result);
+    }
+  });
+});
