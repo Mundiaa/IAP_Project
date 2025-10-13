@@ -8,7 +8,7 @@ $conf['admin_email'] = 'emmanuel.githaiga@strathmore.edu'; //your admin email
 $conf['db_host'] = '127.0.0.1'; //you can use localhost
 $conf['db_port'] = 3307; //your MariaDB port
 $conf['db_user'] = 'root';
-$conf['db_pass'] = 'Admin123';   //your MariaDB password
+$conf['db_pass'] = 'admin123';   //your MariaDB password
 $conf['db_name'] = 'notez_wiz'; //your database name
 
 // Site Language
