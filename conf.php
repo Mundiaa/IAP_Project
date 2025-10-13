@@ -7,6 +7,7 @@ $conf['admin_email'] = 'mercy.ngure@strathmore.edu'; //your admin email
 // Database Configuration (MariaDB)
 $conf['db_host'] = 'localhost';
 $conf['db_user'] = 'root';
+$conf['db_pass'] = ''; //your MariaDB password
 $conf['db_pass'] = 'admin123';   //your MariaDB password
 $conf['db_name'] = 'notez_wiz'; //your database name
 
@@ -20,3 +21,4 @@ $conf['smtp_user'] = 'nyamburamercy229@gmail.com'; //your SMTP email
 $conf['smtp_pass'] = 'kgdi ovgr ralk dygt'; //your SMTP email password
 $conf['smtp_port'] = 465;
 $conf['smtp_secure'] = 'ssl';
+
