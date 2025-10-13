@@ -7,7 +7,6 @@ $conf['admin_email'] = ''; //your admin email
 // Database Configuration (MariaDB)
 $conf['db_host'] = 'localhost';
 $conf['db_user'] = 'root';
-$conf['db_pass'] = 'admin123';   //your MariaDB password
 $conf['db_pass'] = '';   //your MariaDB password
 $conf['db_name'] = 'notez_wiz'; //your database name
 
