@@ -127,10 +127,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
 <script src="asset/js/script.js"></script>
 </body>
 </html>
-
-
-<<<<<<< HEAD
-?>
-=======
-<?
->>>>>>> main
