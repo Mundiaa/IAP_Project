@@ -95,15 +95,52 @@ if (isset($conn) && $conn) {
 
       <!-- Add Note -->
       <div class="mb-4">
-        <textarea 
-          class="form-control note-textarea mb-3" 
-          rows="3" 
-          placeholder="Write a new note..."></textarea>
+        <input 
+          type="text" 
+          id="noteTitle" 
+          class="form-control mb-2" 
+          placeholder="Enter note title..."
+        >
         
-        <button class="btn btn-primary btn-custom">Add Note</button>
+        <textarea 
+          id="noteContent" 
+          class="form-control note-textarea mb-3" 
+          rows="4" 
+          placeholder="Write your note content here..."
+        ></textarea>
+        
+        <button class="btn btn-primary btn-custom" id="addNoteBtn">Add Note</button>
       </div>
 
+
       <!-- Notes List -->
+      <div id="notesContainer">
+        <?php
+          $stmt = $conn->prepare("SELECT title, content, created_at FROM notes WHERE user_id=? ORDER BY created_at DESC");
+          $stmt->bind_param("i", $_SESSION['user_id']);
+          $stmt->execute();
+          $result = $stmt->get_result();
+
+          if ($result->num_rows > 0):
+            while ($note = $result->fetch_assoc()):
+        ?>
+          <div class="note-card card p-3 mb-3">
+            <h5><?= htmlspecialchars($note['title']) ?></h5>
+            <p><?= nl2br(htmlspecialchars($note['content'])) ?></p>
+            <small>Created on <?= htmlspecialchars($note['created_at']) ?></small>
+          </div>
+        <?php
+          endwhile;
+        else:
+          echo "<p>No notes yet. Start by adding one above!</p>";
+        endif;
+        $stmt->close();
+        ?>
+      </div>
+
+
+
+      <!-- Notes List
       <div id="notesContainer">
         <div class="note-card card p-3 mb-3" data-type="recent">
           <div class="d-flex justify-content-between align-items-center">
@@ -124,7 +161,7 @@ if (isset($conn) && $conn) {
             </div>
           </div>
         </div>
-      </div>
+      </div>  -->
     </div>
   </div>
   <script src="assets/js/dashboard.js"></script>

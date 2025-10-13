@@ -7,8 +7,7 @@ $conf['admin_email'] = 'mercy.ngure@strathmore.edu'; //your admin email
 // Database Configuration (MariaDB)
 $conf['db_host'] = 'localhost';
 $conf['db_user'] = 'root';
-$conf['db_port'] = 3306;    //your MariaDB port
-$conf['db_pass'] = '1234';   //your MariaDB password
+$conf['db_pass'] = '';   //your MariaDB password
 $conf['db_name'] = 'notez_wiz'; //your database name
 
 // Site Language
