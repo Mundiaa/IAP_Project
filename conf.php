@@ -21,3 +21,4 @@ $conf['smtp_user'] = 'mundiamanuel5@gmail.com'; //your SMTP email
 $conf['smtp_pass'] = 'ttrz tzax fozv afvq'; //your SMTP email password
 $conf['smtp_port'] = 465;
 $conf['smtp_secure'] = 'ssl';
+
