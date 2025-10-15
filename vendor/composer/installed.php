@@ -1,20 +1,20 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
+        'name' => 'pc/iap_project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '284cee103240ade65c5714ee9e1d1685a0e1ee76',
-        'type' => 'library',
+        'reference' => '999405ed25935db7add2b0540e08548d80157a41',
+        'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        '__root__' => array(
+        'pc/iap_project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '284cee103240ade65c5714ee9e1d1685a0e1ee76',
-            'type' => 'library',
+            'reference' => '999405ed25935db7add2b0540e08548d80157a41',
+            'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,

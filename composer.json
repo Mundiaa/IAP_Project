@@ -1,5 +1,10 @@
 {
+    "name": "pc/iap_project",
+    "description": "Student project for handling email and authentication features.",
+    "type": "project",
     "require": {
         "phpmailer/phpmailer": "^6.10"
-    }
+    },
+    "license": "MIT",
+    "minimum-stability": "stable"
 }
