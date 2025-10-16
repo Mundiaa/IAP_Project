@@ -89,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
                             <input type="password" name="password" class="form-control" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                        <a href="forgot_password.php">Forgot Password?</a>
+
                     </form>
                 </div>
             </div>
