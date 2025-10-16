@@ -72,3 +72,46 @@ const toggleBtn = document.getElementById("darkModeToggle");
     }
   });
 });
+
+// Delete note
+function deleteNote(noteId) {
+  if (!confirm("Are you sure you want to delete this note?")) return;
+  
+  fetch('delete_note.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: 'note_id=' + encodeURIComponent(noteId)
+  })
+  .then(res => res.text())
+  .then(res => {
+    if (res === 'success') {
+      alert('Note deleted successfully!');
+      location.reload();
+    } else {
+      alert('Error deleting note: ' + res);
+    }
+  });
+}
+
+// Edit note
+function editNote(noteId, oldTitle, oldContent) {
+  const newTitle = prompt("Edit note title:", oldTitle);
+  if (newTitle === null) return;
+  const newContent = prompt("Edit note content:", oldContent);
+  if (newContent === null) return;
+
+  fetch('edit_note.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `note_id=${noteId}&title=${encodeURIComponent(newTitle)}&content=${encodeURIComponent(newContent)}`
+  })
+  .then(res => res.text())
+  .then(res => {
+    if (res === 'success') {
+      alert('Note updated successfully!');
+      location.reload();
+    } else {
+      alert('Error updating note: ' + res);
+    }
+  });
+}
