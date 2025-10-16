@@ -1,6 +1,12 @@
 <?php
-require 'conf.php';
-require 'database.php';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once 'conf.php';
+require_once 'database.php';
+session_start();
+
 
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
@@ -26,17 +32,20 @@ if (isset($_GET['token'])) {
                 // Delete used token
                 $conn->query("DELETE FROM password_resets WHERE token='$token'");
 
-                echo "✅ Password updated successfully!";
+                echo "<div style='color:green;'>✅ Password updated successfully!</div>";
                 exit;
             }
         } else {
-            echo "⚠ Token expired. Please request a new password reset.";
+            echo "<div style='color:red;'>⚠ Token expired. Please request a new password reset.</div>";
+            exit;
         }
     } else {
-        echo "⚠ Invalid reset link.";
+        echo "<div style='color:red;'>⚠ Invalid reset link.</div>";
+        exit;
     }
 } else {
-    echo "⚠ No reset token provided.";
+    echo "<div style='color:red;'>⚠ No reset token provided.</div>";
+    exit;
 }
 ?>
 
