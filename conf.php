@@ -1,28 +1,23 @@
 <?php
+// Site Information
+$conf['site_name'] = 'Notez Wiz';
+$conf['site_url'] = 'http://localhost';
+$conf['admin_email'] = 'mercy.ngure@strathmore.edu'; //your admin email
 
-$conf = [
-    
-    // Site Information
-    'site_name' => 'Notez Wiz',
-    'site_url' => 'http://localhost/IAP_Project', //File location for the project
-    'admin_email' => '', //your admin email
+// Database Configuration (MariaDB)
+$conf['db_host'] = 'localhost';
+$conf['db_user'] = 'root';
+$conf['db_pass'] = 'Admin123'; //your MariaDB password
+$conf['db_name'] = 'notez_wiz'; //your database name
 
-    // Database Configuration
-    'db_host' => 'localhost',
-    'db_port' => 3306, //your MariaDB port
-    'db_user' => 'root',
-    'db_pass' => '', //your MariaDB password
-    'db_name' => 'notez_wiz', //your database name
+// Site Language
+$conf['site_lang'] = 'en';
 
-    // Site Language
-    'site_lang' => 'en',
+// Email Configuration
+$conf['mail_type'] = 'smtp';
+$conf['smtp_host'] = 'smtp.gmail.com';
+$conf['smtp_user'] = 'nyamburamercy229@gmail.com'; //your SMTP email
+$conf['smtp_pass'] = 'kgdi ovgr ralk dygt'; //your SMTP email password
+$conf['smtp_port'] = 465;
+$conf['smtp_secure'] = 'ssl';
 
-    // SMTP Configuration
-    'mail_type' => 'smtp',
-    'smtp_host' => 'smtp.gmail.com',
-    'smtp_user' => '', //your SMTP email
-    'smtp_pass' => '', // your Gmail app password
-    'smtp_port' => 465,
-    'smtp_secure' => 'ssl'
-];
-?>
