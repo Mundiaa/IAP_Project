@@ -1,23 +1,28 @@
 <?php
-// Site Information
-$conf['site_name'] = 'Notez Wiz';
-$conf['site_url'] = 'http://localhost';
-$conf['admin_email'] = ''; //your admin email
 
-// Database Configuration (MariaDB)
-$conf['db_host'] = 'localhost';
-$conf['db_user'] = 'root';
-$conf['db_pass'] = ''; //your MariaDB password
-$conf['db_name'] = 'notez_wiz'; //your database name
+$conf = [
+    
+    // Site Information
+    'site_name' => 'Notez Wiz',
+    'site_url' => 'http://localhost:8081/IAP_Project', //File location for the project
+    'admin_email' => 'emmanuel.githaiga@strathmore.edu', //your admin email
 
-// Site Language
-$conf['site_lang'] = 'en';
+    // Database Configuration
+    'db_host' => '127.0.0.1',
+    'db_port' => 3307, //your MariaDB port
+    'db_user' => 'root',
+    'db_pass' => 'admin123', //your MariaDB password
+    'db_name' => 'notez_wiz', //your database name
 
-// Email Configuration
-$conf['mail_type'] = 'smtp';
-$conf['smtp_host'] = 'smtp.gmail.com';
-$conf['smtp_user'] = ''; //your SMTP email
-$conf['smtp_pass'] = ''; //your SMTP email password
-$conf['smtp_port'] = 465;
-$conf['smtp_secure'] = 'ssl';
+    // Site Language
+    'site_lang' => 'en',
 
+    // SMTP Configuration
+    'mail_type' => 'smtp',
+    'smtp_host' => 'smtp.gmail.com',
+    'smtp_user' => 'mundiamanuel5@gmail.com', //your SMTP email
+    'smtp_pass' => 'ttrz tzax fozv afvq', // Gmail app password
+    'smtp_port' => 465,
+    'smtp_secure' => 'ssl'
+];
+?>

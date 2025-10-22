@@ -17,7 +17,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 if (isset($conn) && $conn) {
     // user
     if (isset($_SESSION['user_id'])) {
-        $stmt = $conn->prepare("SELECT fullname,email FROM users WHERE id=?");
+        $stmt = $conn->prepare("SELECT fullname, email FROM users WHERE id=?");
         $stmt->bind_param("i", $_SESSION['user_id']);
         $stmt->execute();
         $res = $stmt->get_result();
@@ -116,21 +116,39 @@ if (isset($conn) && $conn) {
       <!-- Notes List -->
       <div id="notesContainer">
         <?php
-          $stmt = $conn->prepare("SELECT title, content, created_at FROM notes WHERE user_id=? ORDER BY created_at DESC");
+          $stmt = $conn->prepare("SELECT id, title, content, created_at FROM notes WHERE user_id=? ORDER BY created_at DESC");
           $stmt->bind_param("i", $_SESSION['user_id']);
           $stmt->execute();
           $result = $stmt->get_result();
 
           if ($result->num_rows > 0):
             while ($note = $result->fetch_assoc()):
-        ?>
-          <div class="note-card card p-3 mb-3">
-            <h5><?= htmlspecialchars($note['title']) ?></h5>
-            <p><?= nl2br(htmlspecialchars($note['content'])) ?></p>
-            <small>Created on <?= htmlspecialchars($note['created_at']) ?></small>
-          </div>
-        <?php
-          endwhile;
+              ?>
+                <div class="note-card card p-3 mb-3">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h5><?= htmlspecialchars($note['title']) ?></h5>
+                      <p><?= nl2br(htmlspecialchars($note['content'])) ?></p>
+                      <small>Created on <?= htmlspecialchars($note['created_at']) ?></small>
+                    </div>
+
+                    <!-- Action buttons (Edit & Delete) -->
+                    <div>
+                      <button class="btn btn-sm btn-outline-secondary btn-custom"
+                              onclick="editNote(<?= $note['id'] ?>, '<?= htmlspecialchars($note['title'], ENT_QUOTES) ?>', '<?= htmlspecialchars($note['content'], ENT_QUOTES) ?>')">
+                        Edit
+                      </button>
+
+                      <button class="btn btn-sm btn-outline-danger btn-custom"
+                              onclick="deleteNote(<?= $note['id'] ?>)">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              <?php
+              endwhile;
+
         else:
           echo "<p>No notes yet. Start by adding one above!</p>";
         endif;
@@ -138,32 +156,51 @@ if (isset($conn) && $conn) {
         ?>
       </div>
 
-
-
-      <!-- Notes List
-      <div id="notesContainer">
-        <div class="note-card card p-3 mb-3" data-type="recent">
-          <div class="d-flex justify-content-between align-items-center">
-            <span>This is a sample note.</span>
-            <div>
-              <button class="btn btn-sm btn-outline-secondary btn-custom">Edit</button>
-              <button class="btn btn-sm btn-outline-danger btn-custom">Delete</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="note-card card p-3 mb-3" data-type="favorites">
-          <div class="d-flex justify-content-between align-items-center">
-            <span>Another example note here.</span>
-            <div>
-              <button class="btn btn-sm btn-outline-secondary btn-custom">Edit</button>
-              <button class="btn btn-sm btn-outline-danger btn-custom">Delete</button>
-            </div>
-          </div>
-        </div>
-      </div>  -->
     </div>
   </div>
   <script src="assets/js/dashboard.js"></script>
+  <script>
+    function deleteNote(noteId) {
+      if (!confirm("Are you sure you want to delete this note?")) return;
+      
+      fetch('delete_note.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'note_id=' + encodeURIComponent(noteId)
+      })
+      .then(res => res.text())
+      .then(res => {
+        if (res === 'success') {
+          alert('Note deleted successfully!');
+          location.reload();
+        } else {
+          alert('Error deleting note: ' + res);
+        }
+      });
+    }
+
+    function editNote(noteId, oldTitle, oldContent) {
+      const newTitle = prompt("Edit note title:", oldTitle);
+      if (newTitle === null) return;
+      const newContent = prompt("Edit note content:", oldContent);
+      if (newContent === null) return;
+
+      fetch('edit_note.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `note_id=${noteId}&title=${encodeURIComponent(newTitle)}&content=${encodeURIComponent(newContent)}`
+      })
+      .then(res => res.text())
+      .then(res => {
+        if (res === 'success') {
+          alert('Note updated successfully!');
+          location.reload();
+        } else {
+          alert('Error updating note: ' + res);
+        }
+      });
+    }
+  </script>
+
  </body>
 </html>
