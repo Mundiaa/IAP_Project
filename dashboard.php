@@ -60,18 +60,24 @@ if (isset($conn) && $conn) {
 <body>
 
    <!-- Sidebar -->
-  <div class="sidebar">
-    <h3>Notez Wiz</h3>
-    <a href="#">🏠 Home</a>
-    <a href="#">👤 Profile</a>
-    <a href="#">📝 Notes</a>
-    <a href="#">⚙️ Settings</a>
-    <a href="logout.php">🚪 Logout</a>
-
-    <div class="toggle-btn">
-      <button id="darkModeToggle" class="btn btn-light btn-sm">🌙 Dark Mode</button>
-    </div>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h3>🧠 Notez Wiz</h3>
   </div>
+
+  <ul class="sidebar-menu">
+    <li><a href="#" class="nav-link active" onclick="showSection('home')">🏠 Home</a></li>
+    <li><a href="#" class="nav-link" onclick="showSection('profile')">👤 Profile</a></li>
+    <li><a href="#" class="nav-link" onclick="showSection('notes')">📝 Notes</a></li>
+    <li><a href="#" class="nav-link" onclick="showSection('settings')">⚙️ Settings</a></li>
+    <li><a href="logout.php" class="nav-link">🚪 Logout</a></li>
+  </ul>
+
+  <div class="toggle-btn">
+    <button id="darkModeToggle" class="btn btn-sm">🌙 Dark Mode</button>
+  </div>
+</div>
+
 
   <!-- Main Content -->
   <div class="content">
