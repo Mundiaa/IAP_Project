@@ -448,12 +448,22 @@ class ClassLoader
         if ($this->classMapAuthoritative || isset($this->missingClasses[$class])) {
             return false;
         }
+        if (null !== $this->apcuPrefix) {
+            $file = apcu_fetch($this->apcuPrefix.$class, $hit);
+            if ($hit) {
+                return $file;
+            }
+        }
 
         $file = $this->findFileWithExtension($class, '.php');
 
         // Search for Hack files if we are running on HHVM
         if (false === $file && defined('HHVM_VERSION')) {
             $file = $this->findFileWithExtension($class, '.hh');
+        }
+
+        if (null !== $this->apcuPrefix) {
+            apcu_add($this->apcuPrefix.$class, $file);
         }
 
         if (false === $file) {
