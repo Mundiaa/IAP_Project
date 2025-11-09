@@ -352,6 +352,29 @@ body.dashboard-body {
     transform: translateY(-2px);
 }
 
+.btn-outline-warning {
+    border: 2px solid #ed8936;
+    color: #ed8936;
+}
+
+.btn-outline-warning:hover {
+    background: #ed8936;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    color: #fff;
+    border: none;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #dd6b20 0%, #ed8936 100%);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
 .btn-custom {
     border-radius: 25px;
     padding: 10px 20px;
@@ -626,5 +649,21 @@ body.dark-mode .section-header {
 
 body.dark-mode .section-header h5 {
     color: #e2e8f0;
+}
+
+/* Badge Styles */
+.badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
 }
 
