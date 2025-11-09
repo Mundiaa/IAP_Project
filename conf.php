@@ -1,14 +1,10 @@
 <?php
-// Site Information
-$conf['site_name'] = 'Notez Wiz';
-$conf['site_url'] = 'http://localhost'; //your site URL
-$conf['admin_email'] = ''; //your admin email
 
 $conf = [
     
     // Site Information
     'site_name' => 'Notez Wiz',
-    'site_url' => 'http://localhost/project/IAP_Project', //File location for the project
+    'site_url' => 'http://localhost/project/IAP_Project', //your site URL
     'admin_email' => '', //your admin email
 
     // Database Configuration
