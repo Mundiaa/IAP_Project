@@ -28,58 +28,152 @@ if (toggleBtn) {
   }
 }
 
-// Search Notes
+// Search Notes - works with filter
 const searchInput = document.getElementById("searchInput");
 const notesContainer = document.getElementById("notesContainer");
 
-if (searchInput && notesContainer) {
-  searchInput.addEventListener("keyup", () => {
-    const query = searchInput.value.toLowerCase();
-    const notes = notesContainer.getElementsByClassName("note-card");
-    let visibleCount = 0;
+function applyFilters() {
+  const filterSelect = document.getElementById("filterSelect");
+  const searchQuery = searchInput ? searchInput.value.toLowerCase() : '';
+  const filter = filterSelect ? filterSelect.value : 'all';
+  const notes = notesContainer.getElementsByClassName("note-card");
+  let visibleCount = 0;
 
-    Array.from(notes).forEach(note => {
+  Array.from(notes).forEach(note => {
+    let shouldShow = true;
+
+    // Apply filter first
+    if (filter === "recent") {
+      const createdDate = new Date(note.dataset.createdDate);
+      const now = new Date();
+      const daysDiff = (now - createdDate) / (1000 * 60 * 60 * 24);
+      shouldShow = daysDiff <= 7;
+    } else if (filter === "favorites") {
+      const noteId = note.dataset.noteId;
+      const favorites = getFavorites();
+      shouldShow = favorites.includes(noteId.toString());
+    }
+
+    // Then apply search if filter passed
+    if (shouldShow && searchQuery) {
       const text = note.innerText.toLowerCase();
-      if (text.includes(query)) {
-        note.style.display = "block";
-        visibleCount++;
-      } else {
-        note.style.display = "none";
-      }
-    });
+      shouldShow = text.includes(searchQuery);
+    }
 
-    // Show message if no results found
-    let noResultsMsg = document.getElementById('noResultsMessage');
-    if (query && visibleCount === 0) {
-      if (!noResultsMsg) {
-        noResultsMsg = document.createElement('div');
-        noResultsMsg.id = 'noResultsMessage';
-        noResultsMsg.className = 'alert alert-info text-center';
-        noResultsMsg.innerHTML = '<i class="fas fa-search"></i> No notes found matching your search.';
-        notesContainer.appendChild(noResultsMsg);
-      }
-    } else if (noResultsMsg) {
-      noResultsMsg.remove();
+    if (shouldShow) {
+      note.style.display = "block";
+      visibleCount++;
+    } else {
+      note.style.display = "none";
     }
   });
+
+  // Show message if no results found
+  let noResultsMsg = document.getElementById('noResultsMessage');
+  if (visibleCount === 0) {
+    if (!noResultsMsg) {
+      noResultsMsg = document.createElement('div');
+      noResultsMsg.id = 'noResultsMessage';
+      noResultsMsg.className = 'alert alert-info text-center mt-3';
+      let message = '';
+      if (searchQuery && filter !== 'all') {
+        const filterText = filter === "recent" ? "recent notes" : "favorite notes";
+        message = `<i class="fas fa-search"></i> No ${filterText} found matching "${searchQuery}".`;
+      } else if (searchQuery) {
+        message = '<i class="fas fa-search"></i> No notes found matching your search.';
+      } else if (filter !== 'all') {
+        const filterText = filter === "recent" ? "recent notes" : "favorite notes";
+        message = `<i class="fas fa-info-circle"></i> No ${filterText} found.`;
+      }
+      if (message) {
+        noResultsMsg.innerHTML = message;
+        notesContainer.appendChild(noResultsMsg);
+      }
+    }
+  } else if (noResultsMsg) {
+    noResultsMsg.remove();
+  }
 }
 
-// Filter Notes
+if (searchInput && notesContainer) {
+  searchInput.addEventListener("keyup", applyFilters);
+}
+
+// Filter Notes - works with search
 const filterSelect = document.getElementById("filterSelect");
 if (filterSelect && notesContainer) {
-  filterSelect.addEventListener("change", () => {
-    const filter = filterSelect.value;
-    const notes = notesContainer.getElementsByClassName("note-card");
-
-    Array.from(notes).forEach(note => {
-      if (filter === "all" || note.dataset.type === filter) {
-        note.style.display = "block";
-      } else {
-        note.style.display = "none";
-      }
-    });
-  });
+  filterSelect.addEventListener("change", applyFilters);
 }
+
+// Favorites Management
+function getFavorites() {
+  const favorites = localStorage.getItem('noteFavorites');
+  return favorites ? JSON.parse(favorites) : [];
+}
+
+function saveFavorites(favorites) {
+  localStorage.setItem('noteFavorites', JSON.stringify(favorites));
+}
+
+function toggleFavorite(noteId) {
+  const favorites = getFavorites();
+  const noteIdStr = noteId.toString();
+  const noteCard = document.querySelector(`[data-note-id="${noteId}"]`);
+  const favoriteBtn = noteCard ? noteCard.querySelector('.favorite-btn') : null;
+
+  if (favorites.includes(noteIdStr)) {
+    // Remove from favorites
+    const index = favorites.indexOf(noteIdStr);
+    favorites.splice(index, 1);
+    if (noteCard) noteCard.dataset.isFavorite = "false";
+    if (favoriteBtn) {
+      favoriteBtn.innerHTML = '<i class="far fa-star"></i> Favorite';
+      favoriteBtn.classList.remove('btn-warning');
+      favoriteBtn.classList.add('btn-outline-warning');
+      favoriteBtn.title = "Add to Favorites";
+    }
+    showAlert('Note removed from favorites', 'info');
+  } else {
+    // Add to favorites
+    favorites.push(noteIdStr);
+    if (noteCard) noteCard.dataset.isFavorite = "true";
+    if (favoriteBtn) {
+      favoriteBtn.innerHTML = '<i class="fas fa-star"></i> Favorited';
+      favoriteBtn.classList.remove('btn-outline-warning');
+      favoriteBtn.classList.add('btn-warning');
+      favoriteBtn.title = "Remove from Favorites";
+    }
+    showAlert('Note added to favorites', 'success');
+  }
+
+  saveFavorites(favorites);
+
+  // If favorites filter is active, refresh the filter
+  if (filterSelect && filterSelect.value === "favorites") {
+    applyFilters();
+  }
+}
+
+// Initialize favorites on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const favorites = getFavorites();
+  const notes = document.querySelectorAll('.note-card');
+
+  notes.forEach(note => {
+    const noteId = note.dataset.noteId;
+    const favoriteBtn = note.querySelector('.favorite-btn');
+
+    if (favorites.includes(noteId)) {
+      note.dataset.isFavorite = "true";
+      if (favoriteBtn) {
+        favoriteBtn.innerHTML = '<i class="fas fa-star"></i> Favorited';
+        favoriteBtn.classList.remove('btn-outline-warning');
+        favoriteBtn.classList.add('btn-warning');
+        favoriteBtn.title = "Remove from Favorites";
+      }
+    }
+  });
+});
 
 // Handle Note Submission
 document.addEventListener('DOMContentLoaded', function() {
@@ -167,6 +261,15 @@ function deleteNote(noteId) {
   .then(res => res.text())
   .then(res => {
     if (res === 'success') {
+      // Remove from favorites if it was favorited
+      const favorites = getFavorites();
+      const noteIdStr = noteId.toString();
+      if (favorites.includes(noteIdStr)) {
+        const index = favorites.indexOf(noteIdStr);
+        favorites.splice(index, 1);
+        saveFavorites(favorites);
+      }
+      
       showAlert('Note deleted successfully!', 'success');
       setTimeout(() => location.reload(), 1500);
     } else {
@@ -193,11 +296,14 @@ function editNote(noteId, oldTitle, oldContent) {
   .then(res => res.text())
   .then(res => {
     if (res === 'success') {
-      alert('Note updated successfully!');
-      location.reload();
+      showAlert('Note updated successfully!', 'success');
+      setTimeout(() => location.reload(), 1500);
     } else {
-      alert('Error updating note: ' + res);
+      showAlert('Error updating note: ' + res, 'danger');
     }
+  })
+  .catch(error => {
+    showAlert('Error: ' + error.message, 'danger');
   });
 }
 

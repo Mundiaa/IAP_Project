@@ -228,23 +228,44 @@ if (isset($conn) && $conn) {
 
               if ($result->num_rows > 0):
                 while ($note = $result->fetch_assoc()):
+                  $note_date = strtotime($note['created_at']);
+                  $is_recent = (time() - $note_date) < (2 * 24 * 60 * 60); // Last 2 days
+                  $note_id = $note['id'];
                   ?>
-                    <div class="note-card card p-4 mb-3">
+                    <div class="note-card card p-4 mb-3" 
+                         data-note-id="<?= $note_id ?>" 
+                         data-created-date="<?= $note['created_at'] ?>"
+                         data-is-recent="<?= $is_recent ? 'true' : 'false' ?>"
+                         data-is-favorite="false">
                       <div class="d-flex justify-content-between align-items-start">
                         <div class="flex-grow-1">
-                          <h5 class="note-title">
-                            <i class="fas fa-sticky-note text-primary"></i> 
-                            <?= htmlspecialchars($note['title']) ?>
-                          </h5>
+                          <div class="d-flex align-items-center mb-2">
+                            <h5 class="note-title mb-0">
+                              <i class="fas fa-sticky-note text-primary"></i> 
+                              <?= htmlspecialchars($note['title']) ?>
+                            </h5>
+                            <?php if ($is_recent): ?>
+                              <span class="badge badge-primary ml-2" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <i class="fas fa-clock"></i> Recent
+                              </span>
+                            <?php endif; ?>
+                          </div>
                           <p class="note-content mt-3"><?= nl2br(htmlspecialchars($note['content'])) ?></p>
                           <div class="note-date mt-3">
                             <i class="fas fa-calendar-alt"></i>
-                            <span class="ml-2">Created on <?= date('F j, Y g:i A', strtotime($note['created_at'])) ?></span>
+                            <span class="ml-2">Created on <?= date('F j, Y g:i A', $note_date) ?></span>
                           </div>
                         </div>
 
-                        <!-- Action buttons (Edit & Delete) -->
+                        <!-- Action buttons (Favorite, Edit & Delete) -->
                         <div class="note-actions ml-3">
+                          <button class="btn btn-sm btn-outline-warning btn-custom favorite-btn"
+                                  onclick="toggleFavorite(<?= $note_id ?>)"
+                                  title="Add to Favorites"
+                                  data-note-id="<?= $note_id ?>">
+                            <i class="far fa-star"></i> Favorite
+                          </button>
+                          
                           <button class="btn btn-sm btn-outline-primary btn-custom"
                                   onclick="editNote(<?= $note['id'] ?>, '<?= htmlspecialchars($note['title'], ENT_QUOTES) ?>', '<?= htmlspecialchars($note['content'], ENT_QUOTES) ?>')"
                                   title="Edit Note">
