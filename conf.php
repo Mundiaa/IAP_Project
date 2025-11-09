@@ -18,14 +18,6 @@ $conf = [
     'db_pass' => '1234', //your MariaDB password
     'db_name' => 'notez_wiz', //your database name
 
-// Email Configuration
-$conf['mail_type'] = 'smtp';
-$conf['smtp_host'] = 'smtp.gmail.com';
-$conf['smtp_user'] = ''; //your SMTP email
-$conf['smtp_pass'] = ''; //your SMTP email password
-$conf['smtp_port'] = 465;
-$conf['smtp_secure'] = 'ssl';
-
     // SMTP Configuration
     'mail_type' => 'smtp',
     'smtp_host' => 'smtp.gmail.com',
