@@ -62,10 +62,10 @@ if (isset($conn) && $conn) {
    <!-- Sidebar -->
   <div class="sidebar">
     <h3>Notez Wiz</h3>
-    <a href="#">🏠 Home</a>
-    <a href="#">👤 Profile</a>
-    <a href="#">📝 Notes</a>
-    <a href="#">⚙️ Settings</a>
+    <a href="dashboard.php" class="active">🏠 Home</a>
+    <a href="profile.php">👤 Profile</a>
+    <a href="dashboard.php">📝 Notes</a>
+    <a href="settings.php">⚙️ Settings</a>
     <a href="logout.php">🚪 Logout</a>
 
     <div class="toggle-btn">

@@ -38,6 +38,11 @@ body {
       background: rgba(255,255,255,0.2);
     }
 
+    .sidebar a.active {
+      background: rgba(255,255,255,0.3);
+      font-weight: bold;
+    }
+
     .content {
       margin-left: 260px;
       padding: 20px;
