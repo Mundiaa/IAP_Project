@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="landing-body">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <a class="navbar-brand" href="#">
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
     </div>
 </nav>
 
-<div class="jumbotron jumbotron-fluid text-center text-white" style="background: linear-gradient(to right, #6a11cb, #2575fc);">
+<div class="jumbotron jumbotron-fluid text-center text-white landing-hero">
     <div class="container">
         <h1 class="display-4 font-weight-bold">Welcome to Notez Wiz!</h1>
         <p class="lead">Your simple and secure way to manage notes.</p>
