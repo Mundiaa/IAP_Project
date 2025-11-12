@@ -63,6 +63,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("si", $hashed_password, $user_id);
 
     if ($stmt->execute()) {
+        // Track interaction
+        if (isset($conn)) {
+            $table_check = $conn->query("SHOW TABLES LIKE 'user_interactions'");
+            if ($table_check->num_rows > 0) {
+                $track_stmt = $conn->prepare("INSERT INTO user_interactions (user_id, interaction_type, interaction_details, page_url) VALUES (?, 'password_changed', 'Password changed successfully', ?)");
+                $url = $_SERVER['HTTP_REFERER'] ?? 'settings.php';
+                $track_stmt->bind_param("is", $user_id, $url);
+                $track_stmt->execute();
+                $track_stmt->close();
+            }
+        }
         header("Location: settings.php?status=success");
     } else {
         header("Location: settings.php?status=error");

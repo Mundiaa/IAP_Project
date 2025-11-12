@@ -24,10 +24,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->fetch();
 
             //Verify password
-            if (password_verify($password, $hashed_password)) {
+            if ($hashed_password !== null && password_verify($password, $hashed_password)) {
                 $_SESSION["loggedin"] = true;
                 $_SESSION["user_id"]  = $id;
                 $_SESSION["fullname"] = $fullname;
+
+                // Track login interaction
+                if (isset($conn)) {
+                    $table_check = $conn->query("SHOW TABLES LIKE 'user_interactions'");
+                    if ($table_check->num_rows > 0) {
+                        $track_stmt = $conn->prepare("INSERT INTO user_interactions (user_id, interaction_type, interaction_details, page_url) VALUES (?, 'login', 'User logged in', ?)");
+                        $url = $_SERVER['HTTP_REFERER'] ?? 'Login.php';
+                        $track_stmt->bind_param("is", $id, $url);
+                        $track_stmt->execute();
+                        $track_stmt->close();
+                    }
+                }
 
                 header("Location: dashboard.php");
                 exit;

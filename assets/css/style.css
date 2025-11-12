@@ -690,6 +690,26 @@ body.dark-mode .section-header h5 {
     color: #e2e8f0;
 }
 
+/* Chart Container Styles */
+canvas {
+    max-height: 400px;
+}
+
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+
+/* Analytics Page Specific */
+#loadingIndicator {
+    padding: 40px;
+}
+
+body.dark-mode canvas {
+    filter: brightness(0.9);
+}
+
 /* Badge Styles */
 .badge {
     padding: 5px 12px;

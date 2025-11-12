@@ -84,6 +84,10 @@ if (isset($conn) && isset($_SESSION['user_id'])) {
       <i class="fas fa-sticky-note"></i>
       <span>Notes</span>
     </a>
+    <a href="analytics.php">
+      <i class="fas fa-chart-bar"></i>
+      <span>Analytics</span>
+    </a>
     <a href="settings.php" class="active">
       <i class="fas fa-cog"></i>
       <span>Settings</span>

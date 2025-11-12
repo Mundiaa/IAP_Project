@@ -48,6 +48,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_SESSION['fullname'])) {
             $_SESSION['fullname'] = $fullname;
         }
+        // Track interaction
+        if (isset($conn)) {
+            $table_check = $conn->query("SHOW TABLES LIKE 'user_interactions'");
+            if ($table_check->num_rows > 0) {
+                $track_stmt = $conn->prepare("INSERT INTO user_interactions (user_id, interaction_type, interaction_details, page_url) VALUES (?, 'profile_updated', ?, ?)");
+                $details = "Profile updated: " . $fullname;
+                $url = $_SERVER['HTTP_REFERER'] ?? 'profile.php';
+                $track_stmt->bind_param("iss", $user_id, $details, $url);
+                $track_stmt->execute();
+                $track_stmt->close();
+            }
+        }
         header("Location: profile.php?status=success");
     } else {
         header("Location: profile.php?status=error");

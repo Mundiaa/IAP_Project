@@ -1,3 +1,27 @@
+// Global function to track user interactions
+function trackInteraction(type, details = '', url = '') {
+  if (!type) return;
+  
+  const formData = new FormData();
+  formData.append('type', type);
+  formData.append('details', details);
+  formData.append('url', url || window.location.href);
+  
+  // Send asynchronously without blocking
+  fetch('track_interaction.php', {
+    method: 'POST',
+    body: formData
+  }).catch(error => {
+    // Silently fail - don't interrupt user experience
+    console.log('Analytics tracking failed:', error);
+  });
+}
+
+// Track page view on dashboard
+if (window.location.pathname.includes('dashboard.php')) {
+  trackInteraction('page_view', 'Dashboard page viewed', window.location.href);
+}
+
 // Dark Mode Toggle
 const toggleBtn = document.getElementById("darkModeToggle");
 if (toggleBtn) {
@@ -10,12 +34,14 @@ if (toggleBtn) {
       toggleBtn.classList.add("btn-dark");
       // Save preference to localStorage
       localStorage.setItem('darkMode', 'enabled');
+      trackInteraction('button_click', 'Dark mode enabled');
     } else {
       toggleBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
       toggleBtn.classList.remove("btn-dark");
       toggleBtn.classList.add("btn-light");
       // Save preference to localStorage
       localStorage.setItem('darkMode', 'disabled');
+      trackInteraction('button_click', 'Dark mode disabled');
     }
   });
 
@@ -96,13 +122,21 @@ function applyFilters() {
 }
 
 if (searchInput && notesContainer) {
-  searchInput.addEventListener("keyup", applyFilters);
+  searchInput.addEventListener("keyup", (e) => {
+    applyFilters();
+    if (e.target.value.length > 2) {
+      trackInteraction('search_performed', `Search query: ${e.target.value}`);
+    }
+  });
 }
 
 // Filter Notes - works with search
 const filterSelect = document.getElementById("filterSelect");
 if (filterSelect && notesContainer) {
-  filterSelect.addEventListener("change", applyFilters);
+  filterSelect.addEventListener("change", (e) => {
+    applyFilters();
+    trackInteraction('filter_applied', `Filter: ${e.target.value}`);
+  });
 }
 
 // Favorites Management
@@ -133,6 +167,7 @@ function toggleFavorite(noteId) {
       favoriteBtn.title = "Add to Favorites";
     }
     showAlert('Note removed from favorites', 'info');
+    trackInteraction('note_unfavorited', `Note ID: ${noteId}`);
   } else {
     // Add to favorites
     favorites.push(noteIdStr);
@@ -144,6 +179,7 @@ function toggleFavorite(noteId) {
       favoriteBtn.title = "Remove from Favorites";
     }
     showAlert('Note added to favorites', 'success');
+    trackInteraction('note_favorited', `Note ID: ${noteId}`);
   }
 
   saveFavorites(favorites);
@@ -206,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (result === "success") {
           showAlert('Note added successfully!', 'success');
+          trackInteraction('note_created', `Note created: ${title}`);
           // Clear form
           titleInput.value = '';
           contentInput.value = '';
@@ -271,6 +308,7 @@ function deleteNote(noteId) {
       }
       
       showAlert('Note deleted successfully!', 'success');
+      trackInteraction('note_deleted', `Note ID: ${noteId}`);
       setTimeout(() => location.reload(), 1500);
     } else {
       showAlert('Error deleting note: ' + res, 'danger');
@@ -297,6 +335,7 @@ function editNote(noteId, oldTitle, oldContent) {
   .then(res => {
     if (res === 'success') {
       showAlert('Note updated successfully!', 'success');
+      trackInteraction('note_edited', `Note ID: ${noteId}`);
       setTimeout(() => location.reload(), 1500);
     } else {
       showAlert('Error updating note: ' + res, 'danger');
