@@ -17,7 +17,6 @@ A comprehensive, secure web-based note-taking application built with PHP and MyS
 - [Security Features](#security-features)
 - [Analytics System](#analytics-system)
 - [Troubleshooting](#troubleshooting)
-- [Deployment](#deployment)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -502,41 +501,6 @@ The analytics system tracks comprehensive user interactions and provides visual 
    - Activity Timeline (Multi-line Chart)
 
 For detailed analytics setup instructions, see `ANALYTICS_SETUP.md`.
-
-## 🚀 Deployment
-
-To deploy Notez Wiz to the internet for public access, see the comprehensive **[Deployment Guide](DEPLOYMENT.md)**.
-
-### Quick Deployment Options
-
-1. **Shared Web Hosting** (Easiest)
-   - Upload files via FTP/cPanel
-   - Set up MySQL database
-   - Configure `conf.php` with production settings
-   - See [DEPLOYMENT.md](DEPLOYMENT.md#option-a-shared-web-hosting-cpanel) for details
-
-2. **VPS Hosting** (More Control)
-   - Set up LAMP stack on Ubuntu
-   - Configure Apache virtual host
-   - Set up SSL certificate
-   - See [DEPLOYMENT.md](DEPLOYMENT.md#option-b-vps-deployment-digitalocean-linode-etc) for details
-
-3. **Cloud Platforms** (Scalable)
-   - Deploy to Heroku, AWS, or Google Cloud
-   - Use managed database services
-   - See [DEPLOYMENT.md](DEPLOYMENT.md#option-c-cloud-platform-heroku-example) for details
-
-### Important Pre-Deployment Steps
-
-- [ ] Update `conf.php` with production database credentials
-- [ ] Configure SMTP email settings
-- [ ] Set up SSL/HTTPS certificate
-- [ ] Disable error display in production
-- [ ] Set proper file permissions
-- [ ] Configure `.htaccess` for security
-- [ ] Set up regular database backups
-
-For detailed deployment instructions, security hardening, and troubleshooting, refer to **[DEPLOYMENT.md](DEPLOYMENT.md)**.
 
 ## 🐛 Troubleshooting
 
