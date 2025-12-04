@@ -585,28 +585,20 @@ Contributions are welcome! To contribute:
 - Add comments for complex logic
 - Test thoroughly before submitting
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 👥 Authors
 
 - **Project Team** - Initial work
 
 ## 🙏 Acknowledgments
 
-- Bootstrap team for the excellent CSS framework
-- Chart.js for powerful data visualization
-- PHPMailer for reliable email functionality
-- Font Awesome for beautiful icons
-- All contributors and users of Notez Wiz
+- Users of Notez Wiz
 
 ## 📞 Support
 
-For support, email [your-admin@email.com] or open an issue in the repository.
+For support, email [githaiga.mundia@gmail.com] or open an issue in the repository.
 
 ---
 
 **Note**: This is a student project developed for educational purposes. For production use, additional security measures and optimizations are recommended.
 
-**Last Updated**: 2024
+**Last Updated**: December 2025
